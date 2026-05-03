@@ -1,7 +1,2 @@
-import axios from "axios";
+// Deprecated: use axiosInstance.js instead
 
-const API = axios.create({
-  baseURL: "http://localhost:5000",
-});
-
-export default API;

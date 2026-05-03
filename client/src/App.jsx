@@ -1,15 +1,23 @@
-import { useState, useEffect } from 'react'
-import API from './services/Api';
+import { Routes, Route } from 'react-router-dom';
+import Landing from './pages/Landing';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import PrivateRoute from './components/PrivateRoute';
+import Dashboard from './pages/Dashboard';
 
 function App() {
-
-  useEffect(() => {
-    API.get("/")
-      .then(res => console.log(res.data))
-      .catch(err => console.error(err));
-  }, []);
-
-  return <h1>Check console</h1>;
+  return (
+    <Routes>
+      <Route path="/" element={<Landing />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/dashboard" element={<PrivateRoute />}>
+        <Route index element={<Dashboard />} />
+      </Route>
+      <Route path="*" element={<Landing />} />
+    </Routes>
+  );
 }
 
-export default App
+export default App;
+
