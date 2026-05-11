@@ -16,10 +16,20 @@ export const workflowApi = baseApi.injectEndpoints({
 
       invalidatesTags: ["Workflow"],
     }),
+
+    deleteWorkflow: builder.mutation({
+      query: (id) => ({
+        url: `/workflows/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Workflow"],
+    }),
   }),
 });
 
 export const {
   useGetWorkflowsQuery,
   useCreateWorkflowMutation,
+  useDeleteWorkflowMutation,
 } = workflowApi;
+
