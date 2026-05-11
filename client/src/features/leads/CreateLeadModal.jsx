@@ -68,7 +68,7 @@ const CreateLeadModal = ({ isOpen, onClose }) => {
     >
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+        className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[-1]"
         onClick={onClose}
         aria-hidden="true"
       />
