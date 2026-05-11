@@ -1,38 +1,60 @@
+import { useDispatch, useSelector } from 'react-redux';
+// setShowRegisterModal now exists in authSlice
+import { setShowRegisterModal } from '../features/auth/authSlice';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 const Landing = () => {
+  const dispatch = useDispatch();
+  // auth.token and auth.user match the renamed state keys in authSlice
+  const { token, user } = useSelector((state) => state.auth);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       <Navbar />
-      
+
       {/* Hero Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-6">
-            Never Miss a{' '}
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Follow-Up
-            </span>{' '}
-            Again
-          </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            AI-powered automated follow-up & escalation system that ensures no lead slips through the cracks.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a
-              href="/register"
-              className="bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 shadow-xl hover:shadow-2xl transition-all duration-300"
-            >
-              Get Started Free
-            </a>
-            <a
-              href="#features"
-              className="border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-50 transition-all duration-300"
-            >
-              Watch Demo
-            </a>
-          </div>
+          {token ? (
+            <>
+              <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-6">
+                Welcome back, {user?.name || 'User'}!
+              </h1>
+              <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+                Manage your automated follow-ups and never miss a lead.
+              </p>
+            </>
+          ) : (
+            <>
+              <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-6">
+                Never Miss a{' '}
+                <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  Follow-Up
+                </span>{' '}
+                Again
+              </h1>
+              <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+                AI-powered automated follow-up &amp; escalation system that ensures no lead slips through the cracks.
+              </p>
+            </>
+          )}
+          {!token && (
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <button
+                onClick={() => dispatch(setShowRegisterModal(true))}
+                className="bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 shadow-xl hover:shadow-2xl transition-all duration-300"
+              >
+                Get Started Free
+              </button>
+              <a
+                href="#features"
+                className="border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-50 transition-all duration-300"
+              >
+                Watch Demo
+              </a>
+            </div>
+          )}
         </div>
       </section>
 
@@ -47,7 +69,7 @@ const Landing = () => {
               Powerful features to automate your follow-ups and close more deals
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="group p-8 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
               <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
@@ -101,28 +123,22 @@ const Landing = () => {
           <p className="text-xl text-gray-600 mb-16">
             Get up and running in minutes, close more deals in hours.
           </p>
-          
+
           <div className="grid md:grid-cols-3 gap-12 items-center">
             <div className="text-left">
-              <div className="w-20 h-20 bg-blue-600 text-white rounded-2xl flex items-center justify-center mx-auto mb-6 font-bold text-2xl">
-                1
-              </div>
+              <div className="w-20 h-20 bg-blue-600 text-white rounded-2xl flex items-center justify-center mx-auto mb-6 font-bold text-2xl">1</div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Connect Your Data</h3>
               <p className="text-gray-600">Import contacts from CRM, email, or spreadsheet. We handle the rest.</p>
             </div>
-            
+
             <div className="text-left">
-              <div className="w-20 h-20 bg-emerald-600 text-white rounded-2xl flex items-center justify-center mx-auto mb-6 font-bold text-2xl">
-                2
-              </div>
+              <div className="w-20 h-20 bg-emerald-600 text-white rounded-2xl flex items-center justify-center mx-auto mb-6 font-bold text-2xl">2</div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Set Your Rules</h3>
               <p className="text-gray-600">Configure follow-up sequences, timing, and escalation triggers.</p>
             </div>
-            
+
             <div className="text-left">
-              <div className="w-20 h-20 bg-purple-600 text-white rounded-2xl flex items-center justify-center mx-auto mb-6 font-bold text-2xl">
-                3
-              </div>
+              <div className="w-20 h-20 bg-purple-600 text-white rounded-2xl flex items-center justify-center mx-auto mb-6 font-bold text-2xl">3</div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Watch Magic Happen</h3>
               <p className="text-gray-600">AI handles everything automatically. You get notified of hot leads.</p>
             </div>
@@ -139,15 +155,17 @@ const Landing = () => {
           <p className="text-xl mb-8 opacity-90">
             Join 1000+ sales teams automating their follow-ups today.
           </p>
-          <a
-            href="/register"
-            className="inline-flex items-center bg-white text-blue-600 px-10 py-5 rounded-2xl text-xl font-semibold hover:bg-gray-100 shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:-translate-y-1"
-          >
-            Start Free Trial
-            <svg className="w-6 h-6 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </a>
+          {!token && (
+            <button
+              onClick={() => dispatch(setShowRegisterModal(true))}
+              className="inline-flex items-center bg-white text-blue-600 px-10 py-5 rounded-2xl text-xl font-semibold hover:bg-gray-100 shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
+            >
+              Start Free Trial
+              <svg className="w-6 h-6 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </button>
+          )}
         </div>
       </section>
 
@@ -157,4 +175,3 @@ const Landing = () => {
 };
 
 export default Landing;
-

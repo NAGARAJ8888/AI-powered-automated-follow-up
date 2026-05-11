@@ -1,23 +1,13 @@
-import { Routes, Route } from 'react-router-dom';
-import Landing from './pages/Landing';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import PrivateRoute from './components/PrivateRoute';
-import Dashboard from './pages/Dashboard';
+import AppRoutes from './routes/AppRoutes';
 
+/**
+ * App — root component.
+ * All routing and the global AuthModal are managed inside AppRoutes.
+ * token + user are rehydrated from localStorage via authSlice initialState —
+ * no loadUser dispatch needed.
+ */
 function App() {
-  return (
-    <Routes>
-      <Route path="/" element={<Landing />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/dashboard" element={<PrivateRoute />}>
-        <Route index element={<Dashboard />} />
-      </Route>
-      <Route path="*" element={<Landing />} />
-    </Routes>
-  );
+  return <AppRoutes />;
 }
 
 export default App;
-

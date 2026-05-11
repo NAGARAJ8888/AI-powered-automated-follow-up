@@ -2,9 +2,13 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import { setupListeners } from '@reduxjs/toolkit/query';
 import './index.css';
 import { store } from './app/store';
 import App from './App.jsx';
+
+// Enable refetchOnFocus and refetchOnReconnect for all RTK Query endpoints
+setupListeners(store.dispatch);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

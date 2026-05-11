@@ -1,23 +1,27 @@
 import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useLoginUserMutation } from '../features/auth/authAPI';
-import { clearError } from '../features/auth/authSlice';
+// useLoginMutation is the correct hook name (was useLoginUserMutation)
+import { useLoginMutation } from '../features/auth/authAPI';
+import { setCredentials, clearError } from '../features/auth/authSlice';
 
+// Note: This page is currently a dead route — App.jsx redirects /login → /
+// Auth is handled via the AuthModal. Keep this file for future standalone use.
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { error, loading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [loginUser] = useLoginUserMutation();
+  // isLoading and error come from the mutation hook, not Redux state
+  const [loginUser, { isLoading, error }] = useLoginMutation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch(clearError());
-    
+
     try {
-      await loginUser({ email, password }).unwrap();
+      const res = await loginUser({ email, password }).unwrap();
+      dispatch(setCredentials(res));
       navigate('/dashboard');
     } catch (err) {
       console.error('Login failed:', err);
@@ -32,13 +36,13 @@ const Login = () => {
             Sign in to your account
           </h2>
         </div>
-        
+
         {error && (
           <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-xl">
-            {error}
+            {error?.data?.message || 'Login failed'}
           </div>
         )}
-        
+
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
@@ -55,7 +59,7 @@ const Login = () => {
               placeholder="Enter your email"
             />
           </div>
-          
+
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
               Password
@@ -71,17 +75,15 @@ const Login = () => {
               placeholder="Enter your password"
             />
           </div>
-          
-          <div>
-            <button
-              type="submit"
-              disabled={loading}
-              className="group relative w-full flex justify-center py-4 px-4 border border-transparent text-sm font-bold rounded-xl text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-xl hover:shadow-2xl transform hover:-translate-y-0.5"
-            >
-              {loading ? 'Signing in...' : 'Sign in'}
-            </button>
-          </div>
-          
+
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="w-full flex justify-center py-4 px-4 rounded-xl text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-xl"
+          >
+            {isLoading ? 'Signing in...' : 'Sign in'}
+          </button>
+
           <div className="text-center">
             <a href="/register" className="font-medium text-blue-600 hover:text-blue-500">
               Create new account
@@ -94,4 +96,3 @@ const Login = () => {
 };
 
 export default Login;
-

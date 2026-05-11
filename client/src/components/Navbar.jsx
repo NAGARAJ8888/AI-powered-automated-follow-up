@@ -1,12 +1,13 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { logout } from '../features/auth/authSlice';
+import { Link, useNavigate } from 'react-router-dom';
+// setShowRegisterModal now exists in authSlice
+import { logout, setShowLoginModal, setShowRegisterModal } from '../features/auth/authSlice';
 
 const Navbar = () => {
+  // auth.user and auth.token match the renamed state keys in authSlice
   const { user, token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useLocation();
 
   const handleLogout = () => {
     dispatch(logout());
@@ -22,27 +23,28 @@ const Navbar = () => {
               FollowUp AI
             </Link>
           </div>
-          
+
           <div className="flex items-center space-x-4">
-            {location.pathname === '/' && !token && (
+            {!token && (
               <>
-                <Link
-                  to="/login"
+                <button
+                  onClick={() => dispatch(setShowLoginModal(true))}
                   className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
                 >
                   Login
-                </Link>
-                <Link
-                  to="/register"
+                </button>
+                <button
+                  onClick={() => dispatch(setShowRegisterModal(true))}
                   className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700"
                 >
                   Get Started
-                </Link>
+                </button>
               </>
             )}
-            
+
             {token && (
               <div className="flex items-center space-x-4">
+                {/* user.name comes from Redux state, which is rehydrated from localStorage */}
                 <span className="text-gray-700">Hi, {user?.name || 'User'}</span>
                 <Link
                   to="/dashboard"
@@ -66,4 +68,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

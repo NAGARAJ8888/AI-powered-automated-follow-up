@@ -1,27 +1,26 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import axiosInstance from '../../services/axiosInstance';
+import { baseApi } from "../../api/baseApi";
 
-export const authAPI = createApi({
-  reducerPath: 'authAPI',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000' }),
-  tagTypes: ['User'],
+export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    loginUser: builder.mutation({
-      query: (credentials) => ({
-        url: '/api/auth/login',
-        method: 'POST',
-        body: credentials,
+    login: builder.mutation({
+      query: (data) => ({
+        url: "/auth/login",
+        method: "POST",
+        body: data,
       }),
     }),
-    registerUser: builder.mutation({
-      query: (userData) => ({
-        url: '/api/auth/register',
-        method: 'POST',
-        body: userData,
+
+    register: builder.mutation({
+      query: (data) => ({
+        url: "/auth/register",
+        method: "POST",
+        body: data,
       }),
     }),
   }),
 });
 
-export const { useLoginUserMutation, useRegisterUserMutation } = authAPI;
-
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+} = authApi;
