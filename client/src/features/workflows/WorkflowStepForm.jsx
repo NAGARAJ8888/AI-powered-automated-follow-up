@@ -1,14 +1,16 @@
 const StepTypeSelect = ({ value, onChange, error }) => {
   return (
     <div>
-      <label className="block text-xs font-medium text-gray-700 mb-1">
+      <label className="block text-xs font-medium text-gray-700 dark:text-slate-200 mb-1">
         Step Type <span className="text-red-500">*</span>
       </label>
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className={`w-full rounded-lg border px-3 py-2 text-sm text-gray-900 bg-white hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${
-          error ? 'border-red-400 bg-red-50' : 'border-gray-200'
+        className={`w-full rounded-lg border px-3 py-2 text-sm text-gray-900 bg-white dark:bg-slate-900 hover:border-gray-300 dark:border-gray-800 dark:hover:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${
+          error
+            ? 'border-red-400 bg-red-50 dark:border-red-400/60 dark:bg-red-950/20'
+            : 'border-gray-200 dark:border-gray-800'
         }`}
       >
         <option value="reminder">Reminder</option>
@@ -22,7 +24,7 @@ const StepTypeSelect = ({ value, onChange, error }) => {
 const StepDelayInput = ({ value, onChange, error }) => {
   return (
     <div>
-      <label className="block text-xs font-medium text-gray-700 mb-1">
+      <label className="block text-xs font-medium text-gray-700 dark:text-slate-200 mb-1">
         Delay <span className="text-red-500">*</span>
       </label>
       <input
@@ -32,8 +34,10 @@ const StepDelayInput = ({ value, onChange, error }) => {
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="e.g. 24"
-        className={`w-full rounded-lg border px-3 py-2 text-sm text-gray-900 bg-white hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${
-          error ? 'border-red-400 bg-red-50' : 'border-gray-200'
+        className={`w-full rounded-lg border px-3 py-2 text-sm text-gray-900 bg-white dark:bg-slate-900 hover:border-gray-300 dark:border-gray-800 dark:hover:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${
+          error
+            ? 'border-red-400 bg-red-50 dark:border-red-400/60 dark:bg-red-950/20'
+            : 'border-gray-200 dark:border-gray-800'
         }`}
       />
       {error && <p className="mt-1 text-xs text-red-600">{error}</p>}
@@ -44,7 +48,7 @@ const StepDelayInput = ({ value, onChange, error }) => {
 const StepMessageTextarea = ({ value, onChange, error }) => {
   return (
     <div>
-      <label className="block text-xs font-medium text-gray-700 mb-1">
+      <label className="block text-xs font-medium text-gray-700 dark:text-slate-200 mb-1">
         Message <span className="text-red-500">*</span>
       </label>
       <textarea
@@ -52,8 +56,10 @@ const StepMessageTextarea = ({ value, onChange, error }) => {
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={value ? '' : 'What should happen in this step?'}
-        className={`w-full rounded-lg border px-3 py-2 text-sm text-gray-900 bg-white hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${
-          error ? 'border-red-400 bg-red-50' : 'border-gray-200'
+        className={`w-full rounded-lg border px-3 py-2 text-sm text-gray-900 bg-white dark:bg-slate-900 hover:border-gray-300 dark:border-gray-800 dark:hover:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${
+          error
+            ? 'border-red-400 bg-red-50 dark:border-red-400/60 dark:bg-red-950/20'
+            : 'border-gray-200 dark:border-gray-800'
         }`}
       />
       {error && <p className="mt-1 text-xs text-red-600">{error}</p>}
@@ -63,17 +69,17 @@ const StepMessageTextarea = ({ value, onChange, error }) => {
 
 const WorkflowStepForm = ({ step, index, error, onChange, onRemove, canRemove }) => {
   return (
-    <div className="rounded-2xl border border-gray-100 bg-white p-4 sm:p-5">
+    <div className="rounded-2xl border border-gray-100 bg-white dark:bg-slate-900 dark:border-gray-800 p-4 sm:p-5">
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center">
-            <span className="text-sm font-semibold text-gray-800">{step.stepNumber}</span>
+          <div className="w-9 h-9 rounded-xl bg-gray-50 dark:bg-slate-800/70 border border-gray-100 dark:border-gray-700 flex items-center justify-center">
+            <span className="text-sm font-semibold text-gray-800 dark:text-slate-100">{step.stepNumber}</span>
           </div>
           <div>
-            <p className="text-sm font-semibold text-gray-900">
+            <p className="text-sm font-semibold text-gray-900 dark:text-slate-100">
               {step.type === 'escalation' ? 'Escalation' : 'Reminder'} Step
             </p>
-            <p className="text-xs text-gray-500">Configure the delay and message.</p>
+            <p className="text-xs text-gray-500 dark:text-slate-300">Configure the delay and message.</p>
           </div>
         </div>
 
@@ -83,8 +89,8 @@ const WorkflowStepForm = ({ step, index, error, onChange, onRemove, canRemove })
           disabled={!canRemove}
           className={`inline-flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-semibold transition-colors border ${
             canRemove
-              ? 'bg-white text-gray-700 border-gray-200 hover:bg-gray-50'
-              : 'bg-gray-50 text-gray-400 border-gray-100 cursor-not-allowed'
+              ? 'bg-white text-gray-700 border-gray-200 hover:bg-gray-50 dark:bg-slate-900 dark:text-slate-200 dark:border-gray-700 dark:hover:bg-slate-800'
+              : 'bg-gray-50 text-gray-400 border-gray-100 cursor-not-allowed dark:bg-slate-800/50 dark:text-slate-500 dark:border-gray-700'
           }`}
           aria-label={`Remove step ${step.stepNumber}`}
         >

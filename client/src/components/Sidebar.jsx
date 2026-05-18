@@ -82,7 +82,20 @@ const Sidebar = ({ isOpen, onClose }) => {
       >
         {/* Brand + mobile close */}
         <div className="flex items-center justify-between h-16 px-6 border-b border-slate-700 flex-shrink-0">
-          <span className="text-white font-bold text-xl tracking-tight">FollowUp AI</span>
+          <NavLink
+            to="/"
+            end
+            onClick={onClose} // close drawer on mobile after navigating
+            className={({ isActive }) =>
+              [
+                'text-white font-bold text-xl tracking-tight',
+                isActive ? 'opacity-100' : 'opacity-90 hover:opacity-100',
+              ].join(' ')
+            }
+            aria-label="Go to home"
+          >
+            FollowUp AI
+          </NavLink>
           <button
             onClick={onClose}
             className="lg:hidden p-1.5 text-slate-400 hover:text-white hover:bg-slate-700 rounded-lg transition-colors"

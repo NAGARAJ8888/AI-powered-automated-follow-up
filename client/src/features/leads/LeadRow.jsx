@@ -26,14 +26,14 @@ const LeadRow = ({ lead }) => {
   };
 
   return (
-    <tr className="hover:bg-gray-50/70 transition-colors group">
+    <tr className="hover:bg-gray-50/70 dark:hover:bg-slate-800/60 transition-colors group">
       {/* Name */}
       <td className="px-6 py-4 whitespace-nowrap">
         <div className="flex items-center gap-3">
-          <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 text-xs font-semibold uppercase select-none">
+          <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center text-blue-700 dark:text-blue-200 text-xs font-semibold uppercase select-none">
             {lead.name?.[0] ?? '?'}
           </div>
-          <span className="text-sm font-medium text-gray-900 truncate max-w-[160px]">
+          <span className="text-sm font-medium text-gray-900 dark:text-slate-100 truncate max-w-[160px]">
             {lead.name ?? '—'}
           </span>
         </div>
@@ -41,7 +41,7 @@ const LeadRow = ({ lead }) => {
 
       {/* Email */}
       <td className="px-6 py-4 whitespace-nowrap">
-        <span className="text-sm text-gray-600 truncate max-w-[180px] block">
+        <span className="text-sm text-gray-600 dark:text-slate-300 truncate max-w-[180px] block">
           {lead.email ?? '—'}
         </span>
       </td>
@@ -68,13 +68,13 @@ const LeadRow = ({ lead }) => {
 
       {/* Actions */}
       <td className="px-6 py-4 whitespace-nowrap">
-        <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2">
           {/* Respond */}
           <ActionButton
             onClick={() => handleAction(respondLead, lead._id)}
             loading={isResponding}
             label="Respond"
-            colorClass="text-blue-600 bg-blue-50 hover:bg-blue-100 border-blue-100"
+            colorClass="text-blue-600 bg-blue-50 hover:bg-blue-100 border-blue-100 dark:text-blue-200 dark:bg-blue-950/30 dark:hover:bg-blue-900/50 dark:border-blue-900/50"
             icon={
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                 d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
@@ -87,7 +87,7 @@ const LeadRow = ({ lead }) => {
               onClick={() => handleAction(pauseLead, lead._id)}
               loading={isPausing}
               label="Pause"
-              colorClass="text-orange-600 bg-orange-50 hover:bg-orange-100 border-orange-100"
+              colorClass="text-orange-600 bg-orange-50 hover:bg-orange-100 border-orange-100 dark:text-orange-200 dark:bg-orange-950/30 dark:hover:bg-orange-900/50 dark:border-orange-900/50"
               icon={
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                   d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -101,7 +101,7 @@ const LeadRow = ({ lead }) => {
               onClick={() => handleAction(resumeLead, lead._id)}
               loading={isResuming}
               label="Resume"
-              colorClass="text-green-600 bg-green-50 hover:bg-green-100 border-green-100"
+              colorClass="text-green-600 bg-green-50 hover:bg-green-100 border-green-100 dark:text-green-200 dark:bg-green-950/30 dark:hover:bg-green-900/50 dark:border-green-900/50"
               icon={
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                   d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />

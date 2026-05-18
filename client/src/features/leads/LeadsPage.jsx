@@ -28,8 +28,8 @@ const LeadsPage = () => {
       {/* Page header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">Leads</h2>
-          <p className="text-gray-500 mt-1 text-sm">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-slate-100">Leads</h2>
+          <p className="text-gray-500 mt-1 text-sm dark:text-slate-300">
             Manage and track all your leads in one place.
           </p>
         </div>
@@ -47,26 +47,19 @@ const LeadsPage = () => {
 
       {/* Refresh indicator strip */}
       {isFetching && !isLoading && (
-        <div className="h-0.5 rounded-full bg-blue-100 overflow-hidden">
-          <div className="h-full bg-blue-500 animate-pulse" style={{ width: '60%' }} />
+        <div className="h-0.5 rounded-full bg-blue-100 overflow-hidden dark:bg-blue-900/40">
+          <div className="h-full bg-blue-500 animate-pulse dark:bg-blue-400" style={{ width: '60%' }} />
         </div>
       )}
 
       {/* Leads table */}
-      <LeadTable
-        leads={leads}
-        isLoading={isLoading}
-        isError={isError}
-        onAddLead={() => setModalOpen(true)}
-      />
+      <LeadTable leads={leads} isLoading={isLoading} isError={isError} onAddLead={() => setModalOpen(true)} />
 
       {/* Create lead modal */}
-      <CreateLeadModal
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-      />
+      <CreateLeadModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
     </div>
   );
 };
 
 export default LeadsPage;
+

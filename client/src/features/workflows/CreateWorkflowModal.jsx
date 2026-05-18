@@ -160,17 +160,16 @@ const CreateWorkflowModal = ({ isOpen, onClose }) => {
         aria-hidden="true"
       />
 
-      <div className="relative w-full max-w-3xl bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden">
-        {/* When there are 2+ steps, allow scrolling for the whole form content */}
+      <div className="relative w-full max-w-3xl bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-800 overflow-hidden">
         {showScrollButton ? (
           <div className="max-h-[80vh] overflow-auto">
-            <div className="flex items-center justify-between px-6 py-5 border-b border-gray-100">
-              <h2 id="workflow-modal-title" className="text-lg font-semibold text-gray-900">
+            <div className="flex items-center justify-between px-6 py-5 border-b border-gray-100 dark:border-gray-800">
+              <h2 id="workflow-modal-title" className="text-lg font-semibold text-gray-900 dark:text-slate-100">
                 Create Workflow
               </h2>
               <button
                 onClick={onClose}
-                className="p-1.5 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors"
+                className="p-1.5 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors dark:text-slate-300"
                 aria-label="Close modal"
                 type="button"
               >
@@ -182,16 +181,14 @@ const CreateWorkflowModal = ({ isOpen, onClose }) => {
 
             <form onSubmit={handleSubmit} noValidate>
               <div className="px-6 py-5 space-y-5">
-                {/* API Error */}
                 {apiError && (
-                  <div className="rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
+                  <div className="rounded-lg bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900/40 px-4 py-3 text-sm text-red-700 dark:text-red-200">
                     {apiErrorMessage}
                   </div>
                 )}
 
-                {/* Name */}
                 <div>
-                  <label htmlFor="workflow-name" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="workflow-name" className="block text-sm font-medium text-gray-700 dark:text-slate-200 mb-1">
                     Workflow Name <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -204,24 +201,23 @@ const CreateWorkflowModal = ({ isOpen, onClose }) => {
                       if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }));
                     }}
                     placeholder="Sales Follow-up"
-                    className={`w-full rounded-lg border px-3 py-2 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${
+                    className={`w-full rounded-lg border px-3 py-2 text-sm text-gray-900 dark:text-slate-100 placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${
                       errors.name
-                        ? 'border-red-400 bg-red-50'
-                        : 'border-gray-200 bg-white hover:border-gray-300'
+                        ? 'border-red-400 bg-red-50 dark:border-red-500/60 dark:bg-red-950/20'
+                        : 'border-gray-200 bg-white hover:border-gray-300 dark:border-gray-700 dark:bg-slate-900 dark:hover:border-gray-600'
                     }`}
                   />
                   {errors.name && <p className="mt-1 text-xs text-red-600">{errors.name}</p>}
                 </div>
 
-                {/* Steps header */}
                 <div className="flex items-end justify-between gap-4">
                   <div>
-                    <p className="text-sm font-semibold text-gray-900">Steps</p>
-                    <p className="text-xs text-gray-500">Add reminder and escalation steps with delays.</p>
+                    <p className="text-sm font-semibold text-gray-900 dark:text-slate-100">Steps</p>
+                    <p className="text-xs text-gray-500 dark:text-slate-300">Add reminder and escalation steps with delays.</p>
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-gray-500 dark:text-slate-300">
                       {stepCount} step{stepCount === 1 ? '' : 's'}
                     </p>
                     <button
@@ -238,12 +234,11 @@ const CreateWorkflowModal = ({ isOpen, onClose }) => {
                 </div>
 
                 {errors.steps && typeof errors.steps === 'string' && (
-                  <div className="rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
+                  <div className="rounded-lg bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900/40 px-4 py-3 text-sm text-red-700 dark:text-red-200">
                     {errors.steps}
                   </div>
                 )}
 
-                {/* Scroll to steps button */}
                 <div className="flex items-center justify-end">
                   <button
                     type="button"
@@ -251,7 +246,7 @@ const CreateWorkflowModal = ({ isOpen, onClose }) => {
                       const el = document.getElementById('workflow-steps');
                       el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }}
-                    className="inline-flex items-center gap-2 rounded-xl bg-gray-100 px-3 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-200 transition-colors"
+                    className="inline-flex items-center gap-2 rounded-xl bg-gray-100 dark:bg-slate-800 px-3 py-2 text-xs font-semibold text-gray-700 dark:text-slate-100 hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors"
                     aria-label="Scroll to workflow steps"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -261,7 +256,6 @@ const CreateWorkflowModal = ({ isOpen, onClose }) => {
                   </button>
                 </div>
 
-                {/* Steps list */}
                 <div id="workflow-steps" className="space-y-3">
                   <StepList
                     steps={normalizeSteps(form.steps)}
@@ -272,13 +266,12 @@ const CreateWorkflowModal = ({ isOpen, onClose }) => {
                 </div>
               </div>
 
-              {/* Footer */}
-              <div className="flex items-center justify-end gap-3 px-6 py-4 bg-gray-50 border-t border-gray-100">
+              <div className="flex items-center justify-end gap-3 px-6 py-4 bg-gray-50 dark:bg-slate-800/50 border-t border-gray-100 dark:border-gray-800">
                 <button
                   type="button"
                   onClick={onClose}
                   disabled={isLoading}
-                  className="px-4 py-2 rounded-lg text-sm font-medium text-gray-700 bg-white border border-gray-200 hover:bg-gray-50 disabled:opacity-50 transition-colors"
+                  className="px-4 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-slate-200 bg-white dark:bg-slate-900 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-slate-800 disabled:opacity-50 transition-colors"
                 >
                   Cancel
                 </button>
@@ -300,13 +293,13 @@ const CreateWorkflowModal = ({ isOpen, onClose }) => {
           </div>
         ) : (
           <>
-            <div className="flex items-center justify-between px-6 py-5 border-b border-gray-100">
-              <h2 id="workflow-modal-title" className="text-lg font-semibold text-gray-900">
+            <div className="flex items-center justify-between px-6 py-5 border-b border-gray-100 dark:border-gray-800">
+              <h2 id="workflow-modal-title" className="text-lg font-semibold text-gray-900 dark:text-slate-100">
                 Create Workflow
               </h2>
               <button
                 onClick={onClose}
-                className="p-1.5 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors"
+                className="p-1.5 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors dark:text-slate-300"
                 aria-label="Close modal"
                 type="button"
               >
@@ -319,13 +312,13 @@ const CreateWorkflowModal = ({ isOpen, onClose }) => {
             <form onSubmit={handleSubmit} noValidate>
               <div className="px-6 py-5 space-y-5">
                 {apiError && (
-                  <div className="rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
+                  <div className="rounded-lg bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900/40 px-4 py-3 text-sm text-red-700 dark:text-red-200">
                     {apiErrorMessage}
                   </div>
                 )}
 
                 <div>
-                  <label htmlFor="workflow-name" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="workflow-name" className="block text-sm font-medium text-gray-700 dark:text-slate-200 mb-1">
                     Workflow Name <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -338,10 +331,10 @@ const CreateWorkflowModal = ({ isOpen, onClose }) => {
                       if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }));
                     }}
                     placeholder="Sales Follow-up"
-                    className={`w-full rounded-lg border px-3 py-2 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${
+                    className={`w-full rounded-lg border px-3 py-2 text-sm text-gray-900 dark:text-slate-100 placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${
                       errors.name
-                        ? 'border-red-400 bg-red-50'
-                        : 'border-gray-200 bg-white hover:border-gray-300'
+                        ? 'border-red-400 bg-red-50 dark:border-red-500/60 dark:bg-red-950/20'
+                        : 'border-gray-200 bg-white hover:border-gray-300 dark:border-gray-700 dark:bg-slate-900 dark:hover:border-gray-600'
                     }`}
                   />
                   {errors.name && <p className="mt-1 text-xs text-red-600">{errors.name}</p>}
@@ -349,12 +342,12 @@ const CreateWorkflowModal = ({ isOpen, onClose }) => {
 
                 <div className="flex items-end justify-between gap-4">
                   <div>
-                    <p className="text-sm font-semibold text-gray-900">Steps</p>
-                    <p className="text-xs text-gray-500">Add reminder and escalation steps with delays.</p>
+                    <p className="text-sm font-semibold text-gray-900 dark:text-slate-100">Steps</p>
+                    <p className="text-xs text-gray-500 dark:text-slate-300">Add reminder and escalation steps with delays.</p>
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-gray-500 dark:text-slate-300">
                       {stepCount} step{stepCount === 1 ? '' : 's'}
                     </p>
                     <button
@@ -371,7 +364,7 @@ const CreateWorkflowModal = ({ isOpen, onClose }) => {
                 </div>
 
                 {errors.steps && typeof errors.steps === 'string' && (
-                  <div className="rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
+                  <div className="rounded-lg bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900/40 px-4 py-3 text-sm text-red-700 dark:text-red-200">
                     {errors.steps}
                   </div>
                 )}
@@ -386,12 +379,12 @@ const CreateWorkflowModal = ({ isOpen, onClose }) => {
                 </div>
               </div>
 
-              <div className="flex items-center justify-end gap-3 px-6 py-4 bg-gray-50 border-t border-gray-100">
+              <div className="flex items-center justify-end gap-3 px-6 py-4 bg-gray-50 dark:bg-slate-800/50 border-t border-gray-100 dark:border-gray-800">
                 <button
                   type="button"
                   onClick={onClose}
                   disabled={isLoading}
-                  className="px-4 py-2 rounded-lg text-sm font-medium text-gray-700 bg-white border border-gray-200 hover:bg-gray-50 disabled:opacity-50 transition-colors"
+                  className="px-4 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-slate-200 bg-white dark:bg-slate-900 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-slate-800 disabled:opacity-50 transition-colors"
                 >
                   Cancel
                 </button>
