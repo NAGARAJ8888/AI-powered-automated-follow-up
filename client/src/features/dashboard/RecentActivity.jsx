@@ -48,25 +48,25 @@ const RecentActivity = memo(function RecentActivity({ leads, workflows }) {
   }, [leads, workflows]);
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+    <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm p-6">
       <div className="flex items-center justify-between gap-4 mb-4">
-        <h3 className="text-lg font-semibold text-gray-900">Recent Activity</h3>
-        <span className="text-xs text-gray-500">Updates from leads & workflows</span>
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Recent Activity</h3>
+        <span className="text-xs text-gray-500 dark:text-gray-400">Updates from leads & workflows</span>
       </div>
 
       {items.length === 0 ? (
-        <div className="text-sm text-gray-500">No activity yet.</div>
+        <div className="text-sm text-gray-500 dark:text-gray-400">No activity yet.</div>
       ) : (
         <div className="space-y-3">
           {items.map((item) => (
             <div
               key={item.id}
-              className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
+              className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
             >
               <span className="text-lg leading-none mt-0.5">{item.icon}</span>
               <div>
-                <p className="text-sm font-medium text-gray-900">{item.text}</p>
-                <p className="text-xs text-gray-500 mt-0.5">
+                <p className="text-sm font-medium text-gray-900 dark:text-gray-100">{item.text}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                   {formatRelativeTime(item.time)}
                 </p>
               </div>

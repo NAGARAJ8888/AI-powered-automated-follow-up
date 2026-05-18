@@ -97,7 +97,9 @@ const Sidebar = ({ isOpen, onClose }) => {
         {/* Navigation */}
         <nav className="flex-1 px-3 py-5 space-y-1 overflow-y-auto">
           <p className="px-4 mb-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            <div className="flex items-center justify-between gap-3">
             Main Menu
+            </div>
           </p>
           {navItems.map(({ to, end, label, icon }) => (
             <NavLink

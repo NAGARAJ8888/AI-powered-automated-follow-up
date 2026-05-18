@@ -1,10 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-// setShowRegisterModal now exists in authSlice
 import { logout, setShowLoginModal, setShowRegisterModal } from '../features/auth/authSlice';
+import ThemeToggle from './ThemeToggle';
 
 const Navbar = () => {
-  // auth.user and auth.token match the renamed state keys in authSlice
   const { user, token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -15,21 +14,23 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white shadow-lg">
+    <nav className="bg-white shadow-lg dark:bg-slate-900 dark:border-b dark:border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
-          <div className="flex items-center">
-            <Link to="/" className="text-2xl font-bold text-gray-900">
+          <div className="flex items-center gap-3">
+            <Link to="/" className="text-2xl font-bold text-gray-900 dark:text-slate-100">
               FollowUp AI
             </Link>
           </div>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-3">
+            <ThemeToggle className="hidden sm:inline-flex" />
+
             {!token && (
               <>
                 <button
                   onClick={() => dispatch(setShowLoginModal(true))}
-                  className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
+                  className="text-gray-700 dark:text-slate-200 hover:text-gray-900 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
                   Login
                 </button>
@@ -44,11 +45,10 @@ const Navbar = () => {
 
             {token && (
               <div className="flex items-center space-x-4">
-                {/* user.name comes from Redux state, which is rehydrated from localStorage */}
-                <span className="text-gray-700">Hi, {user?.name || 'User'}</span>
+                <span className="text-gray-700 dark:text-slate-200">Hi, {user?.name || 'User'}</span>
                 <Link
                   to="/dashboard"
-                  className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
+                  className="text-gray-700 dark:text-slate-200 hover:text-gray-900 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
                   Dashboard
                 </Link>
@@ -68,3 +68,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

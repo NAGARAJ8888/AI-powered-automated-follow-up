@@ -68,30 +68,30 @@ const DashboardPage = () => {
     <div className="p-6 sm:p-8 space-y-6">
       {/* Header */}
       <div className="mb-2">
-        <h2 className="text-2xl font-bold text-gray-900">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
           Analytics Dashboard
         </h2>
-        <p className="text-gray-500 mt-1 text-sm">
+        <p className="text-gray-500 dark:text-gray-400 mt-1 text-sm">
           Track your lead follow-ups and workflow performance at a glance.
         </p>
       </div>
 
       {/* Refresh indicator */}
       {(isLeadsFetching || isWfFetching) && !isLoading && (
-        <div className="h-0.5 rounded-full bg-blue-100 overflow-hidden">
+        <div className="h-0.5 rounded-full bg-blue-100 dark:bg-blue-900/40 overflow-hidden">
           <div
-            className="h-full bg-blue-500 animate-pulse"
+            className="h-full bg-blue-500 dark:bg-blue-400 animate-pulse"
             style={{ width: "60%" }}
           />
         </div>
       )}
 
       {isError ? (
-        <div className="bg-white border border-red-100 rounded-2xl p-5">
-          <p className="text-sm font-medium text-red-700">
+        <div className="bg-white dark:bg-gray-900 border border-red-100 dark:border-red-900/40 rounded-2xl p-5" >
+          <p className="text-sm font-medium text-red-700 dark:text-red-300">
             Failed to load analytics.
           </p>
-          <p className="text-xs text-red-600 mt-1">
+          <p className="text-xs text-red-600 dark:text-red-300/90 mt-1">
             Please refresh the page.
           </p>
         </div>
@@ -103,11 +103,11 @@ const DashboardPage = () => {
           {Array.from({ length: 7 }).map((_, i) => (
             <div
               key={i}
-              className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 animate-pulse"
+              className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm p-5 animate-pulse"
             >
-              <div className="h-4 w-20 bg-gray-200 rounded" />
-              <div className="h-8 w-24 bg-gray-200 rounded mt-3" />
-              <div className="h-3 w-32 bg-gray-200 rounded mt-4" />
+              <div className="h-4 w-20 bg-gray-200 dark:bg-gray-700 rounded" />
+              <div className="h-8 w-24 bg-gray-200 dark:bg-gray-700 rounded mt-3" />
+              <div className="h-3 w-32 bg-gray-200 dark:bg-gray-700 rounded mt-4" />
             </div>
           ))}
         </div>
@@ -304,24 +304,24 @@ const DashboardPage = () => {
             <RecentActivity leads={leads} workflows={workflows} />
           </div>
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 h-full">
-              <h3 className="text-lg font-semibold text-gray-900">Insights</h3>
-              <div className="mt-4 space-y-3 text-sm text-gray-600">
-                <div className="p-3 bg-gray-50 rounded-xl">
-                  <p className="font-medium text-gray-900">Focus on responded leads</p>
-                  <p className="mt-1 text-xs text-gray-500">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm p-6 h-full">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Insights</h3>
+              <div className="mt-4 space-y-3 text-sm text-gray-600 dark:text-gray-300">
+                <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-xl">
+                  <p className="font-medium text-gray-900 dark:text-gray-100">Focus on responded leads</p>
+                  <p className="mt-1 text-xs text-gray-500 dark:text-gray-300">
                     Responded: {formatNumber(leadMetrics.responded)}
                   </p>
                 </div>
-                <div className="p-3 bg-gray-50 rounded-xl">
-                  <p className="font-medium text-gray-900">Keep automations healthy</p>
-                  <p className="mt-1 text-xs text-gray-500">
+                <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-xl">
+                  <p className="font-medium text-gray-900 dark:text-gray-100">Keep automations healthy</p>
+                  <p className="mt-1 text-xs text-gray-500 dark:text-gray-300">
                     Running: {formatNumber(automationMetrics.running)} • Completed: {formatNumber(automationMetrics.completed)}
                   </p>
                 </div>
-                <div className="p-3 bg-gray-50 rounded-xl">
-                  <p className="font-medium text-gray-900">Workflow complexity</p>
-                  <p className="mt-1 text-xs text-gray-500">
+                <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-xl">
+                  <p className="font-medium text-gray-900 dark:text-gray-100">Workflow complexity</p>
+                  <p className="mt-1 text-xs text-gray-500 dark:text-gray-300">
                     Avg steps: {workflowMetrics.avgSteps ? workflowMetrics.avgSteps.toFixed(1) : "0.0"}
                   </p>
                 </div>
