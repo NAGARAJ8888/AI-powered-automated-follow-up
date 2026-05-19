@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useGetLeadsQuery } from './leadApi';
 import LeadTable from './LeadTable';
 import CreateLeadModal from './CreateLeadModal';
+import TimelineModal from './TimelineModal';
+
 
 /**
  * LeadsPage — /dashboard/leads
@@ -22,6 +24,19 @@ const LeadsPage = () => {
 
   // Backend may return { leads: [...] } or a raw array — handle both
   const leads = leadsData?.leads ?? leadsData ?? [];
+
+  const [timelineLead, setTimelineLead] = useState(null);
+  const [timelineOpen, setTimelineOpen] = useState(false);
+
+  const openTimeline = (lead) => {
+    setTimelineLead(lead);
+    setTimelineOpen(true);
+  };
+
+  const closeTimeline = () => {
+    setTimelineOpen(false);
+    setTimelineLead(null);
+  };
 
   return (
     <div className="p-6 sm:p-8 space-y-6">
@@ -53,10 +68,26 @@ const LeadsPage = () => {
       )}
 
       {/* Leads table */}
-      <LeadTable leads={leads} isLoading={isLoading} isError={isError} onAddLead={() => setModalOpen(true)} />
+      <LeadTable
+        leads={leads}
+        isLoading={isLoading}
+        isError={isError}
+        onAddLead={() => setModalOpen(true)}
+        onViewTimeline={openTimeline}
+      />
+
 
       {/* Create lead modal */}
       <CreateLeadModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+
+      {/* Timeline modal */}
+      <TimelineModal
+        isOpen={timelineOpen}
+        onClose={closeTimeline}
+        lead={timelineLead}
+        isLoading={isLoading}
+        isError={isError}
+      />
     </div>
   );
 };

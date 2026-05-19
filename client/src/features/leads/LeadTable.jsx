@@ -73,7 +73,7 @@ const ErrorState = () => (
  *   isError   (bool)    – show error state
  *   onAddLead (fn)      – callback to open CreateLeadModal (used in empty state)
  */
-const LeadTable = ({ leads = [], isLoading, isError, onAddLead }) => {
+const LeadTable = ({ leads = [], isLoading, isError, onAddLead, onViewTimeline }) => {
   const isEmpty = !isLoading && !isError && leads.length === 0;
 
   return (
@@ -99,7 +99,7 @@ const LeadTable = ({ leads = [], isLoading, isError, onAddLead }) => {
             {isError   && <ErrorState />}
             {isEmpty   && <EmptyState onAddLead={onAddLead} />}
             {!isLoading && !isError && leads.map((lead) => (
-              <LeadRow key={lead._id} lead={lead} />
+              <LeadRow key={lead._id} lead={lead} onViewTimeline={onViewTimeline} />
             ))}
           </tbody>
         </table>

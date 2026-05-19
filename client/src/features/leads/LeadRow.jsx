@@ -5,7 +5,10 @@ import LeadStatusBadge from './LeadStatusBadge';
  * LeadRow — a single <tr> in the leads table.
  * Renders all columns and action buttons for one lead.
  */
-const LeadRow = ({ lead }) => {
+const LeadRow = ({ lead, onViewTimeline }) => { 
+  const handleViewTimeline = () => {
+    onViewTimeline?.(lead);
+  };
   const [respondLead, { isLoading: isResponding }] = useRespondLeadMutation();
   const [pauseLead,   { isLoading: isPausing }]    = usePauseLeadMutation();
   const [resumeLead,  { isLoading: isResuming }]   = useResumeLeadMutation();
@@ -68,7 +71,16 @@ const LeadRow = ({ lead }) => {
 
       {/* Actions */}
       <td className="px-6 py-4 whitespace-nowrap">
-      <div className="flex items-center gap-2">
+<div className="flex items-center gap-2">
+          <ActionButton
+            onClick={handleViewTimeline}
+            loading={false}
+            label="Timeline"
+            colorClass="text-slate-700 bg-slate-50 hover:bg-slate-100 border-slate-100 dark:text-slate-200 dark:bg-slate-950/30 dark:hover:bg-slate-900/50 dark:border-slate-800"
+            icon={
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12M8 12h12M8 17h12M4 7h.01M4 12h.01M4 17h.01" />
+            }
+          />
           {/* Respond */}
           <ActionButton
             onClick={() => handleAction(respondLead, lead._id)}
