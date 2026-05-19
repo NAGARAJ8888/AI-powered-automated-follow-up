@@ -1,5 +1,5 @@
-import React from 'react';
 import { getEventBadgeVariant, getEventIcon } from './timelineUtils';
+
 
 const variantStyles = {
   reminder: {

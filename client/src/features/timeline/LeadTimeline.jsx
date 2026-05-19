@@ -1,4 +1,5 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
+
 import TimelineItem from './TimelineItem';
 import TimelineFilters from './TimelineFilters';
 import { filterEvents, normalizeHistoryEvents } from './timelineUtils';

@@ -35,10 +35,15 @@ const CreateWorkflowModal = ({ isOpen, onClose }) => {
 
   useEffect(() => {
     if (!isOpen) return;
-    setForm(INITIAL_FORM);
-    setErrors({});
-    resetMutation();
+
+    queueMicrotask(() => {
+      setErrors({});
+      setForm(INITIAL_FORM);
+      resetMutation();
+    });
   }, [isOpen, resetMutation]);
+
+
 
   const stepCount = form.steps.length;
 

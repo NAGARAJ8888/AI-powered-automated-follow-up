@@ -1,10 +1,9 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { logout } from '../features/auth/authSlice';
+import { useSelector } from 'react-redux';
 import Navbar from '../components/Navbar';
 
 const Dashboard = () => {
   const { user } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
+
 
   return (
     <div className="min-h-screen bg-gray-50">

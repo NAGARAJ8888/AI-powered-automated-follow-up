@@ -1,5 +1,5 @@
-import React from 'react';
 import ActivityBadge from './ActivityBadge';
+
 import { formatAbsoluteTime, formatRelativeTime } from './timelineUtils';
 
 export default function TimelineItem({ event }) {

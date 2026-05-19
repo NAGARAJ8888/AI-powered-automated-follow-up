@@ -7,16 +7,21 @@ const COLUMNS = [
 /** Skeleton row shown while loading */
 const SkeletonRow = () => (
   <tr className="animate-pulse">
-    {COLUMNS.map((col) => (
-      <td key={col} className="px-6 py-4">
-        <div
-          className="h-4 bg-gray-100 rounded-full dark:bg-slate-800/70"
-          style={{ width: `${Math.random() * 40 + 50}%` }}
-        />
-      </td>
-    ))}
+    {COLUMNS.map((col, idx) => {
+      // Deterministic width based on index to keep render pure.
+      const width = 50 + (idx % 6) * 6; // 50..80
+      return (
+        <td key={col} className="px-6 py-4">
+          <div
+            className="h-4 bg-gray-100 rounded-full dark:bg-slate-800/70"
+            style={{ width: `${width}%` }}
+          />
+        </td>
+      );
+    })}
   </tr>
 );
+
 
 /** Empty state shown when there are no leads */
 const EmptyState = ({ onAddLead }) => (

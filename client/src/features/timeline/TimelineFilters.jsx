@@ -1,6 +1,5 @@
-import React from 'react';
-
 const FILTERS = [
+
   { value: 'all', label: 'All events' },
   { value: 'reminders', label: 'Reminders' },
   { value: 'escalations', label: 'Escalations' },
