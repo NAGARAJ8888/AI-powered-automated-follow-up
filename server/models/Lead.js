@@ -53,8 +53,13 @@ const leadSchema = new mongoose.Schema(
         step: Number,
         type: {
           type: String,
-          enum: ["reminder", "escalation", "response"],
+          enum: ["reminder", "escalation", "response", "email_sent", "email_failed"],
         },
+        // Used by email delivery history
+        recipient: String,
+        messageSummary: String,
+        deliveryStatus: String,
+
         message: String,
         timestamp: {
           type: Date,
